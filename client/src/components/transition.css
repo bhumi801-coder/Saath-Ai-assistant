@@ -1,0 +1,26 @@
+/* Page-flip transition (see PageTransition.jsx). Colours follow the Saath black + gold theme. */
+.pt{position:fixed;inset:0;z-index:9000;pointer-events:none;visibility:hidden}
+.pt.on{visibility:visible;pointer-events:auto}
+.pt[data-boot]{visibility:visible;background:#000;pointer-events:auto}
+.pt canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pt-label{position:absolute;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
+  font-size:clamp(2.6rem,8vw,5.5rem);letter-spacing:.01em;color:#E7D3A8;
+  text-shadow:0 0 42px rgba(200,162,107,.5)}
+
+/* The page itself tilts away on exit and flips into place on entry. */
+#main{transform-origin:50% 0}
+#main.pt-out{
+  opacity:0;
+  transform:perspective(1500px) rotateX(7deg) translateY(-2vh) scale(.975);
+  transition:transform .62s cubic-bezier(.55,0,.8,.4),opacity .5s ease .1s;
+}
+#main.pt-in{animation:pt-flip .95s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes pt-flip{
+  from{opacity:0;transform:perspective(1500px) rotateX(-9deg) translateY(4vh) scale(.975)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .pt{display:none}
+  #main.pt-out,#main.pt-in{animation:none;transition:none;opacity:1;transform:none}
+}
