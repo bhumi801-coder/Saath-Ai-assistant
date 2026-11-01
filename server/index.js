@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { db } from './db.js';
 import { seedIfEmpty } from './seed.js';
+import { bootstrapAdmin } from './bootstrap-admin.js';
 import { UP_CITIES } from './data/up-societies.js';
 import { todayIST, addDays, isRealDate } from './dates.js';
 import {
@@ -65,6 +66,7 @@ export const TIME_SLOTS = [
 const slotLabel = (k) => TIME_SLOTS.find((s) => s.key === k)?.label || 'Time to be confirmed';
 
 seedIfEmpty();
+bootstrapAdmin();
 events.configureEvents({ slotLabel });
 warnIfNotConfigured();
 
